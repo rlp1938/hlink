@@ -1,0 +1,36 @@
+.TH HLINK 1 "v\ 1.0.0" "2014-06-12" "GNU"
+.SH NAME
+.B hlink
+\- Converts distinct copies of files in two directory trees into
+mutual hardlinks.
+.SH SYNOPSIS
+.BR hlink " -h"
+.br
+.BI hlink " master_dir slave_dir"
+.br
+.SH OPTIONS
+.TP
+.BR -h
+prints a brief help message.
+.br
+.SH DESCRIPTION
+The program examines two directories having identical structure and
+filename content. Files of the name name but differing inode numbers
+are converted into mutual hardlinks. The two directories MUST be
+.br
+synchronised using a program such as
+.B rsync
+.br
+See
+.B EXAMPLES
+.SH EXAMPLES
+.BR rsync " -av --hard-links --del "
+.I "master_dir slave_dir"
+.br
+.BI hlink " master_dir slave_dir"
+.SH VERSION
+This documentation describes
+.B hlink
+version 1.0.0
+.SH "SEE ALSO"
+.BR duplicates "(1), "processdups "(1), "rsync "(1)"

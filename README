@@ -1,0 +1,15 @@
+hlink - a program to compare two directories and convert distinct copies
+of identical files into hard links. The two dirs MUST have identical
+tree structure and filename content so before running hlink the dirs
+should be synchronised with something like rsync. For example:
+
+rsync -av --hard-links --del master_dir/ slave_dir/
+
+followed by:
+
+hlink master_dir slave_dir
+
+I am aware that cp has options to do this job if you use shopt to have
+it copy dot files and dot dirs. However rsync is wonderfully fast so I
+am sticking with these methods.
+
