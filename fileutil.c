@@ -20,12 +20,16 @@
 
 #include "fileutil.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 struct fdata readfile(const char *filename, off_t extra, int fatal)
 {
 	FILE *fpi;
 	off_t bytesread;
-	char *from, *to, *cp;
+	char *from, *to;
 	struct fdata data;
+	struct stat sb;
 
 	if (stat(filename, &sb) == -1) {
 		if (fatal){
@@ -54,13 +58,14 @@ struct fdata readfile(const char *filename, off_t extra, int fatal)
 		perror("fread");
 		exit(EXIT_FAILURE);
 	}
+
+        fclose (fpi);
+
 	to = from + bytesread + extra;
 	// zero the extra space
 	memset(from+bytesread, 0, to-(from+bytesread));
 	data.from = from;
 	data.to = to;
-	// ensure that the last data byte is '\n'
-	if (*(to - extra -1) != '\n') *(to - extra) = '\n';
 	return data;
 } // readfile()
 
